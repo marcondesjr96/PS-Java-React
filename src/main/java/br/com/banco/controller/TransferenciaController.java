@@ -2,6 +2,7 @@ package br.com.banco.controller;
 
 import br.com.banco.dto.TransferenciaResponse;
 import br.com.banco.dto.TransferenciaRequestFilter;
+import br.com.banco.exception.ContaNotFoundException;
 import br.com.banco.service.impl.TransferenciaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,7 +27,7 @@ public class TransferenciaController {
     }
 
     @GetMapping("/account")
-    public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter transferenciaRequestFilter, Pageable pageable){
+    public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter transferenciaRequestFilter, Pageable pageable) throws ContaNotFoundException {
         return transferenciaService.findTransferenciasByContaId(transferenciaRequestFilter, pageable);
     }
 }
