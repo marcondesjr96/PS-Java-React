@@ -17,5 +17,12 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, Lo
             "   And (:#{#filter.dataFinal} IS NULL OR t.dataTransferencia<= :#{#filter.dataFinal})")
     Page<Transferencia> getTransferencias(TransferenciaRequestFilter filter, Pageable pageable);
 
+    @Query("select SUM(t.valor) from br.com.banco.model.Transferencia t " +
+            " where " +
+            "   t.contaId = :#{#filter.contaId} " +
+            "   And (:#{#filter.dataInicial} IS NULL OR t.dataTransferencia>= :#{#filter.dataInicial})" +
+            "   And (:#{#filter.dataFinal} IS NULL OR t.dataTransferencia<= :#{#filter.dataFinal})")
+    Double getValorTotal(TransferenciaRequestFilter filter);
+
 
 }
