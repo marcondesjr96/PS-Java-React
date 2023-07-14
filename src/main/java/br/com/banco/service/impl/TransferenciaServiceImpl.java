@@ -34,7 +34,10 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 
         Page<Transferencia> transferenciaPage = transferenciaRepository.getTransferencias(transferenciaRequestFilter, pageable);
         return transferenciaPage.map(transferencia -> TransferenciaConvert.modelToDto(transferencia));
+    }
 
-
+    @Override
+    public Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter) {
+        return transferenciaRepository.getValorTotal(transferenciaRequestFilter);
     }
 }

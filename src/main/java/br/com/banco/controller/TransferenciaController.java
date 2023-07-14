@@ -30,4 +30,9 @@ public class TransferenciaController {
     public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter transferenciaRequestFilter, Pageable pageable) throws ContaNotFoundException {
         return transferenciaService.findTransferenciasByContaId(transferenciaRequestFilter, pageable);
     }
+
+    @GetMapping("/valor-total")
+    public Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter){
+        return transferenciaService.getValorTotal(transferenciaRequestFilter);
+    }
 }
