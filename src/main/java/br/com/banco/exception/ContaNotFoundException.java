@@ -8,6 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 public class ContaNotFoundException extends ResponseStatusException {
 
     public ContaNotFoundException(String message) {
-        super(HttpStatus.NOT_FOUND, "Conta não existente!");
+        super(HttpStatus.NOT_FOUND, message);
     }
 }

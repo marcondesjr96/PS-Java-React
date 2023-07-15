@@ -4,6 +4,7 @@ import br.com.banco.convert.TransferenciaConvert;
 import br.com.banco.dto.TransferenciaResponse;
 import br.com.banco.dto.TransferenciaRequestFilter;
 import br.com.banco.exception.ContaNotFoundException;
+import br.com.banco.exception.DataValidationException;
 import br.com.banco.model.Transferencia;
 import br.com.banco.repository.ContaRepository;
 import br.com.banco.repository.TransferenciaRepository;
@@ -28,16 +29,22 @@ public class TransferenciaServiceImpl implements TransferenciaService {
     }
 
     @Override
-    public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter transferenciaRequestFilter, Pageable pageable) throws ContaNotFoundException {
-
-        contaRepository.findById(transferenciaRequestFilter.getContaId()).orElseThrow(()-> new ContaNotFoundException("Numero da conta não encontrado"));
-
-        Page<Transferencia> transferenciaPage = transferenciaRepository.getTransferencias(transferenciaRequestFilter, pageable);
+    public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter filter, Pageable pageable) throws ContaNotFoundException {
+        contaRepository.findById(filter.getContaId())
+                .orElseThrow(() -> new ContaNotFoundException("Numero de conta não encontrado"));
+        dateValidation(filter);
+        Page<Transferencia> transferenciaPage = transferenciaRepository.getTransferencias(filter, pageable);
         return transferenciaPage.map(transferencia -> TransferenciaConvert.modelToDto(transferencia));
     }
 
+    private static void dateValidation(TransferenciaRequestFilter filter) {
+        if (filter.getDataInicial() != null && filter.getDataFinal() != null && filter.getDataInicial().isAfter(filter.getDataFinal())) {
+            throw new DataValidationException("A data inicial não pode ser maior que a data final.");
+        }
+    }
+
     @Override
-    public Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter) {
-        return transferenciaRepository.getValorTotal(transferenciaRequestFilter);
+    public Double getValorTotal(TransferenciaRequestFilter filter) {
+        return transferenciaRepository.getValorTotal(filter);
     }
 }

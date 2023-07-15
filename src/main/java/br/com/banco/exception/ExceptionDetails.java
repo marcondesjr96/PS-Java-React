@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class ContaNotFoundExceptionDetails {
+public class ExceptionDetails {
 
     private String title;
     private int status;
