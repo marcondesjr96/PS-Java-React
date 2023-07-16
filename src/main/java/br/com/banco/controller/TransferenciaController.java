@@ -1,7 +1,7 @@
 package br.com.banco.controller;
 
-import br.com.banco.dto.TransferenciaResponse;
 import br.com.banco.dto.TransferenciaRequestFilter;
+import br.com.banco.dto.TransferenciaResponse;
 import br.com.banco.exception.ContaNotFoundException;
 import br.com.banco.service.impl.TransferenciaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class TransferenciaController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/valor-total")
-    public Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter){
+    public Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter) {
         return transferenciaService.getValorTotal(transferenciaRequestFilter);
     }
 }

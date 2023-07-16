@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class HandlerExceptions extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ContaNotFoundException.class)
-    public ResponseEntity<ExceptionDetails> handlerContaNotFoundException(ContaNotFoundException ex){
+    public ResponseEntity<ExceptionDetails> handlerContaNotFoundException(ContaNotFoundException ex) {
         return new ResponseEntity<>(ExceptionDetails.builder()
                 .timestamp(LocalDateTime.now())
                 .status(ex.getStatus().value())
@@ -26,7 +26,7 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DataValidationException.class)
-    public ResponseEntity<ExceptionDetails> handlerContaNotFoundException(DataValidationException ex){
+    public ResponseEntity<ExceptionDetails> handlerContaNotFoundException(DataValidationException ex) {
         return new ResponseEntity<>(ExceptionDetails.builder()
                 .timestamp(LocalDateTime.now())
                 .status(ex.getStatus().value())
