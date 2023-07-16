@@ -22,11 +22,6 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 
     private final ContaRepository contaRepository;
 
-    @Override
-    public Page<TransferenciaResponse> findAll(Pageable pageable) {
-        Page<Transferencia> transferenciaPage = transferenciaRepository.findAll(pageable);
-        return transferenciaPage.map(transferencia -> TransferenciaConvert.modelToDto(transferencia));
-    }
 
     @Override
     public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter filter, Pageable pageable) throws ContaNotFoundException {

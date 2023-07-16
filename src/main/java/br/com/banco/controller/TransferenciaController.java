@@ -7,10 +7,8 @@ import br.com.banco.service.impl.TransferenciaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -21,16 +19,13 @@ public class TransferenciaController {
     private TransferenciaServiceImpl transferenciaService;
 
 
-    @GetMapping()
-    public Page<TransferenciaResponse> findTransferencias(Pageable pageable){
-        return transferenciaService.findAll(pageable);
-    }
-
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/account")
     public Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter transferenciaRequestFilter, Pageable pageable) throws ContaNotFoundException {
         return transferenciaService.findTransferenciasByContaId(transferenciaRequestFilter, pageable);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/valor-total")
     public Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter){
         return transferenciaService.getValorTotal(transferenciaRequestFilter);

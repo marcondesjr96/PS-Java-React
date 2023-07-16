@@ -8,8 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface TransferenciaService {
 
-    Page<TransferenciaResponse> findAll(Pageable pageable);
-
     Page<TransferenciaResponse> findTransferenciasByContaId(TransferenciaRequestFilter transferenciaRequestFilter, Pageable pageable) throws ContaNotFoundException;
 
     Double getValorTotal(TransferenciaRequestFilter transferenciaRequestFilter);
